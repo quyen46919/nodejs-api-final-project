@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
 const noteSchema = mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   ownerId: {
     type: String,
     required: true,

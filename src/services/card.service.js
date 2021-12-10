@@ -8,9 +8,6 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Card>}
  */
 const createCard = async (cardBody) => {
-  if (await Card.isTitleTaken(cardBody.title)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Title đã tồn tại');
-  }
   return Card.create(cardBody);
 };
 // /**

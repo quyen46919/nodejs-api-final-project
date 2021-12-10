@@ -8,9 +8,6 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Note>}
  */
 const createNote = async (noteBody) => {
-  if (await Note.isTitleTaken(noteBody.title)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Title đã tồn tại');
-  }
   return Note.create(noteBody);
 };
 

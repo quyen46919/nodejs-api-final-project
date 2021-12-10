@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
 const cardSchema = mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   columnId: {
     type: String,
     required: true,
