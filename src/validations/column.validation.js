@@ -32,8 +32,8 @@ const updateColumn = {
         boardId: Joi.string().custom(objectId),
         title: Joi.string().required(),
         isFavorite: Joi.boolean(),
-        columnOrder: Joi.array().custom(objectId),
-        cardOrder: Joi.array(),
+        columnOrder: Joi.array().items(Joi.custom(objectId)),
+        cardOrder: Joi.array().items(Joi.custom(objectId)),
     })
     .min(1),
 };
