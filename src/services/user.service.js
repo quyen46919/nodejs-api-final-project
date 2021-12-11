@@ -11,6 +11,9 @@ const createUser = async (userBody) => {
   if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
+  if (await User.isUsernameTaken(userBody.username)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'username already taken');
+  }
   return User.create(userBody);
 };
 
@@ -44,6 +47,9 @@ const getUserById = async (id) => {
  */
 const getUserByEmail = async (email) => {
   return User.findOne({ email });
+};
+const getUserByUsername = async (username) => {
+  return User.findOne({ username });
 };
 
 /**
@@ -86,4 +92,5 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
+  getUserByUsername,
 };
