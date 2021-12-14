@@ -3,28 +3,28 @@ const { toJSON, paginate } = require('./plugins');
 
 const boardSchema = mongoose.Schema(
   {
-   owner: {
-     type: mongoose.SchemaTypes.ObjectId,
-     require: true
-   },
-   title: {
-     type: String
-   },
-   columnOrder: {
-     type: Array
-   },
-   column: {
-     type: Array
-   },
-   lastUpdated: {
-     type: Date
-   },
-   isFavorite: {
-     type: Boolean
-   },
-   sharedUserList: {
-     type: Array
-   }
+    owner: {
+      type: mongoose.SchemaTypes.ObjectId,
+      require: true,
+    },
+    title: {
+      type: String,
+    },
+    columnOrder: {
+      type: Array,
+    },
+    column: {
+      type: Array,
+    },
+    lastUpdated: {
+      type: Date,
+    },
+    isFavorite: {
+      type: Boolean,
+    },
+    sharedUserList: {
+      type: Array,
+    },
   },
   {
     timestamps: true,
@@ -34,7 +34,6 @@ const boardSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 boardSchema.plugin(toJSON);
 boardSchema.plugin(paginate);
-
 
 /**
  * @typedef User
