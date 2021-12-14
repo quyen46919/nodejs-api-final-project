@@ -1,10 +1,9 @@
 const Joi = require('joi');
-const { password, objectId } = require('./custom.validation');
-const { Board } = require('../models');
+const { objectId } = require('./custom.validation');
 
 const createBoard = {
   body: Joi.object().keys({
-    owner:  Joi.string().custom(objectId),
+    owner: Joi.string().custom(objectId),
     title: Joi.string().required(),
     columnOrder: Joi.array(),
     column: Joi.array(),
@@ -30,23 +29,21 @@ const getBoard = {
   }),
 };
 
-
-const updateBoard = (
-  {
+const updateBoard = {
   params: Joi.object().keys({
     id: Joi.required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
-        title: Joi.string(),
-        columnOrder: Joi.array().items(Joi.custom(objectId)),
-        column: Joi.array().items(Joi.object().keys().min(1)),
-        lastUpdated: Joi.date(),
-        isFavorite: Joi.boolean(),
-        sharedUserList: Joi.array().items(Joi.custom(objectId)),
+      title: Joi.string(),
+      columnOrder: Joi.array().items(Joi.custom(objectId)),
+      column: Joi.array().items(Joi.object().keys().min(1)),
+      lastUpdated: Joi.date(),
+      isFavorite: Joi.boolean(),
+      sharedUserList: Joi.array().items(Joi.custom(objectId)),
     })
     .min(1),
-});
+};
 
 const deleteBoard = {
   params: Joi.object().keys({
@@ -55,9 +52,9 @@ const deleteBoard = {
 };
 
 module.exports = {
-    createBoard,
-    getBoards,
-    getBoard,
-    updateBoard,
-    deleteBoard,
+  createBoard,
+  getBoards,
+  getBoard,
+  updateBoard,
+  deleteBoard,
 };
