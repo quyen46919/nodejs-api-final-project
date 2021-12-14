@@ -29,11 +29,11 @@ const updateColumn = {
   }),
   body: Joi.object()
     .keys({
-        boardId: Joi.string().custom(objectId),
-        title: Joi.string().required(),
-        isFavorite: Joi.boolean(),
-        columnOrder: Joi.array().custom(objectId),
-        cardOrder: Joi.array(),
+      boardId: Joi.string().custom(objectId),
+      title: Joi.string().required(),
+      isFavorite: Joi.boolean(),
+      columnOrder: Joi.array().items(Joi.custom(objectId)),
+      cardOrder: Joi.array().items(Joi.custom(objectId)),
     })
     .min(1),
 };
@@ -45,9 +45,9 @@ const deleteColumn = {
 };
 
 module.exports = {
-    createColumn,
-    queryColumns,
-    queryColumn,
-    updateColumn,
-    deleteColumn,
+  createColumn,
+  queryColumns,
+  queryColumn,
+  updateColumn,
+  deleteColumn,
 };
