@@ -34,11 +34,6 @@ const updateColumn = {
       isFavorite: Joi.boolean(),
       columnOrder: Joi.array().items(Joi.custom(objectId)),
       cardOrder: Joi.array().items(Joi.custom(objectId)),
-      boardId: Joi.string().custom(objectId),
-      title: Joi.string().required(),
-      isFavorite: Joi.boolean(),
-      columnOrder: Joi.array().items(Joi.custom(objectId)),
-      cardOrder: Joi.array().items(Joi.custom(objectId)),
     })
     .min(1),
 };

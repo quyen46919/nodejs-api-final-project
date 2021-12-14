@@ -4,23 +4,23 @@ const { toJSON, paginate } = require('./plugins');
 const columnSchema = mongoose.Schema(
   {
     boardId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        required: true,
-        trim: true,
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      trim: true,
     },
     title: {
-        type: String,
-        trim: true
+      type: String,
+      trim: true,
     },
     isFavorite: {
-        type: Boolean,
+      type: Boolean,
     },
     columnOrder: {
-        type: Array
+      type: Array,
     },
     cardOrder: {
-        type: Array
-    }
+      type: Array,
+    },
   },
   {
     timestamps: true,
