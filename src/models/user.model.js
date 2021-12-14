@@ -11,6 +11,25 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    age: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    avatar: {
+      type: String,
+      trim: true,
+      default: '123456789',
+    },
+    lastLogin: {
+      type: Date,
+      default: Date.now,
+    },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     email: {
       type: String,
       required: true,
@@ -40,10 +59,6 @@ const userSchema = mongoose.Schema(
       enum: roles,
       default: 'user',
     },
-    isEmailVerified: {
-      type: Boolean,
-      default: false,
-    },
   },
   {
     timestamps: true,
@@ -62,6 +77,10 @@ userSchema.plugin(paginate);
  */
 userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
+  return !!user;
+};
+userSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
+  const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
   return !!user;
 };
 
