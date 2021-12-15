@@ -5,6 +5,9 @@ const createCard = {
   body: Joi.object().keys({
     columnId: Joi.string().custom(objectId).required(),
     boardId: Joi.string().custom(objectId).required(),
+    title: Joi.string(),
+    content: Joi.string(),
+    cover: Joi.string(),
   }),
 };
 
