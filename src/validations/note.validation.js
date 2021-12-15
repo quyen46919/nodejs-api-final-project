@@ -3,8 +3,8 @@ const { objectId } = require('./custom.validation');
 
 const createNote = {
   body: Joi.object().keys({
-    title: Joi.string().required(),
-    content: Joi.string().required(),
+    columnId: Joi.string().custom(objectId).required(),
+    boardId: Joi.string().custom(objectId).required(),
   }),
 };
 
