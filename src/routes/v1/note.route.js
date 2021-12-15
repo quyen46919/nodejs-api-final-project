@@ -1,7 +1,7 @@
 const express = require('express');
 const noteController = require('../../controllers/note.controller');
 const noteValidation = require('../../validations/note.validation');
-const { validate } = require('../../models/note.model');
+const validate = require('../../middlewares/validate');
 
 const router = express.Router();
 
