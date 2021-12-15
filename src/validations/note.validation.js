@@ -1,10 +1,11 @@
 const Joi = require('joi');
+// eslint-disable-next-line import/no-unresolved
 const { objectId } = require('./custom.validation');
 
 const createNote = {
   body: Joi.object().keys({
-    title: Joi.string().required(),
-    content: Joi.string().required(),
+    columnId: Joi.string().required(),
+    boardId: Joi.string().required(),
   }),
 };
 
