@@ -15,12 +15,15 @@ const columnSchema = mongoose.Schema(
     isFavorite: {
       type: Boolean,
     },
-    columnOrder: {
-      type: Array,
-    },
+    // columnOrder: {
+    //   type: Array,
+    // },
     cardOrder: {
       type: Array,
     },
+    // cards: {
+    //   type: Array,
+    // },
   },
   {
     timestamps: true,

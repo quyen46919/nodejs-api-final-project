@@ -29,10 +29,8 @@ const updateColumn = {
   }),
   body: Joi.object()
     .keys({
-      boardId: Joi.string().custom(objectId),
       title: Joi.string().required(),
       isFavorite: Joi.boolean(),
-      columnOrder: Joi.array().items(Joi.custom(objectId)),
       cardOrder: Joi.array().items(Joi.custom(objectId)),
     })
     .min(1),

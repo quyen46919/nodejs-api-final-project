@@ -3,7 +3,7 @@ const { toJSON, paginate } = require('./plugins');
 
 const noteSchema = mongoose.Schema({
   ownerId: {
-    type: String,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
   },
   title: {
