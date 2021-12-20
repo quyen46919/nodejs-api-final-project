@@ -9,5 +9,6 @@ router.post('/', validate(boardValidation.createBoard), boardController.createBo
 router.patch('/:id', validate(boardValidation.updateBoard), boardController.updateBoard);
 router.delete('/:id', validate(boardValidation.deleteBoard), boardController.deleteBoard);
 router.get('/', validate(boardValidation.getBoards), boardController.getBoards);
+router.get('/:id', validate(boardValidation.getBoard), boardController.getBoard);
 
 module.exports = router;

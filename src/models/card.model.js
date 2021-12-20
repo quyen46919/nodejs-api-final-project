@@ -3,11 +3,11 @@ const { toJSON, paginate } = require('./plugins');
 
 const cardSchema = mongoose.Schema({
   columnId: {
-    type: String,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
   },
   boardId: {
-    type: String,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
   },
   title: {

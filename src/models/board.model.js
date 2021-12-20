@@ -13,9 +13,9 @@ const boardSchema = mongoose.Schema(
     columnOrder: {
       type: Array,
     },
-    column: {
-      type: Array,
-    },
+    // columns: {
+    //   type: Array,
+    // },
     lastUpdated: {
       type: Date,
     },

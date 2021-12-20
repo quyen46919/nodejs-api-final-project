@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
-const { Board } = require('../models');
+const mongoose = require('mongoose');
+const { Board, Column, Card } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -9,6 +10,15 @@ const ApiError = require('../utils/ApiError');
  */
 const createBoard = async (boardBody) => {
   return Board.create(boardBody);
+};
+
+const pushColumnOrder = async (boardId, columnId) => {
+  const result = await Board.findOneAndUpdate(
+    { _id: mongoose.Types.ObjectId(boardId) },
+    { $push: { columnOrder: columnId } },
+    { returnOriginal: false }
+  );
+  return result;
 };
 
 /**
@@ -23,6 +33,33 @@ const createBoard = async (boardBody) => {
 const queryBoards = async (filter, options) => {
   const boards = await Board.paginate(filter, options);
   return boards;
+};
+
+const getFullBoards = async (boardId) => {
+  const boards = await Board.aggregate([
+    {
+      $match: {
+        _id: mongoose.Types.ObjectId(boardId),
+      },
+    },
+    {
+      $lookup: {
+        from: Column.collection.name,
+        localField: '_id',
+        foreignField: 'boardId',
+        as: 'columns',
+      },
+    },
+    {
+      $lookup: {
+        from: Card.collection.name,
+        localField: '_id',
+        foreignField: 'boardId',
+        as: 'cards',
+      },
+    },
+  ]);
+  return boards[0];
 };
 
 /**
@@ -77,6 +114,8 @@ const deleteBoardById = async (boardId) => {
 module.exports = {
   createBoard,
   queryBoards,
+  getFullBoards,
+  pushColumnOrder,
   getBoardById,
   getBoardByEmail,
   updateBoardById,

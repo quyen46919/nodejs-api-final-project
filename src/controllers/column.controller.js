@@ -1,10 +1,13 @@
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { columnService } = require('../services');
+const { columnService, boardService } = require('../services');
 
 const createColumn = catchAsync(async (req, res) => {
   const column = await columnService.createColumn(req.body);
+
+  // update BoardOrder
+  await boardService.pushColumnOrder(column.boardId.toString(), column._id.toString());
   res.status(httpStatus.CREATED).send(column);
 });
 

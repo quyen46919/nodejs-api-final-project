@@ -1,10 +1,13 @@
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { cardService } = require('../services');
+const { cardService, columnService } = require('../services');
 
 const createCard = catchAsync(async (req, res) => {
   const card = await cardService.createCard(req.body);
+
+  // update columnOrder
+  await columnService.pushCardOrder(card.columnId.toString(), card._id.toString());
   res.status(httpStatus.CREATED).send(card);
 });
 
