@@ -4,3 +4,4 @@ module.exports.columnValidation = require('./column.validation');
 module.exports.boardValidation = require('./board.validation');
 module.exports.noteValidation = require('./note.validation');
 module.exports.cardValidation = require('./card.validation');
+module.exports.eventValidation = require('./event.validation');
