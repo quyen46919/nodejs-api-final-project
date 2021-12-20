@@ -12,16 +12,26 @@ const createBoard = catchAsync(async (req, res) => {
 const getBoards = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await boardService.queryBoards(filter, options);
-  res.send(result);
+  const boards = await boardService.queryBoards(filter, options);
+
+  res.send(boards);
 });
 
 const getBoard = catchAsync(async (req, res) => {
-  const board = await boardService.getBoardById(req.params.id);
-  if (!board) {
+  // const board = await boardService.getBoardById(req.params.id);
+  const boards = await boardService.getFullBoards(req.params.id);
+
+  boards.columns.forEach((column) => {
+    // eslint-disable-next-line no-param-reassign
+    column.cards = boards.cards.filter((c) => c.columnId.toString() === column._id.toString());
+  });
+  // Sort step will pass to Frontend
+  delete boards.cards;
+
+  if (!boards) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Board not found');
   }
-  res.send(board);
+  res.send(boards);
 });
 
 const updateBoard = catchAsync(async (req, res) => {

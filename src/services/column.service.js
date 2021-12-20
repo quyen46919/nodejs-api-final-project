@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { Column } = require('../models');
 const ApiError = require('../utils/ApiError');
+const mongoose = require('mongoose');
 
 /**
  * Create a column
@@ -9,6 +10,15 @@ const ApiError = require('../utils/ApiError');
  */
 const createColumn = async (columnBody) => {
   return Column.create(columnBody);
+};
+
+const pushCardOrder = async (columnId, cardId) => {
+  const result = await Column.findOneAndUpdate(
+    { _id: mongoose.Types.ObjectId(columnId) },
+    { $push: { cardOrder: cardId } },
+    { returnOriginal: false }
+  );
+  return result;
 };
 
 /**
@@ -63,6 +73,7 @@ const deleteColumnById = async (columnId) => {
 module.exports = {
   createColumn,
   queryColumns,
+  pushCardOrder,
   getColumnById,
   updateColumnById,
   deleteColumnById,
