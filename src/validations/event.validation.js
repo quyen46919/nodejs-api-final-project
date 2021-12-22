@@ -3,16 +3,17 @@ const { objectId } = require('./custom.validation');
 
 const createEvent = {
   body: Joi.object().keys({
-    ownerId: Joi.string().custom(objectId).required(),
-    title: Joi.string(),
-    start: Joi.string(),
-    end: Joi.string(),
-    color: Joi.string(),
+    owner: Joi.string().custom(objectId).required(),
+    title: Joi.string().required(),
+    start: Joi.string().required(),
+    end: Joi.string().required(),
+    color: Joi.string().required(),
   }),
 };
 
 const getEvents = {
   query: Joi.object().keys({
+    id: Joi.string().custom(objectId).required(),
     title: Joi.string(),
     start: Joi.string(),
     end: Joi.string(),

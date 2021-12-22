@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { columnService, boardService } = require('../services');
+const { columnService, boardService, cardService } = require('../services');
 
 const createColumn = catchAsync(async (req, res) => {
   const column = await columnService.createColumn(req.body);
@@ -25,12 +25,14 @@ const getColumn = catchAsync(async (req, res) => {
 });
 
 const updateColumn = catchAsync(async (req, res) => {
+  if (req.body._id) delete req.body._id;
   const column = await columnService.updateColumnById(req.params.id, req.body);
   res.send(column);
 });
 
 const deleteColumn = catchAsync(async (req, res) => {
   await columnService.deleteColumnById(req.params.id);
+  await cardService.deleteManyCard(req.params.id);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

@@ -9,7 +9,9 @@ const createEvent = catchAsync(async (req, res) => {
 });
 
 const getEvents = catchAsync(async (req, res) => {
-  const result = await eventService.queryEvents();
+  // const result = await eventService.queryEvents();
+  // res.send(result);
+  const result = await eventService.queryAllEventsByOwnerId(req.query.id);
   res.send(result);
 });
 

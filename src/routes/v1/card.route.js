@@ -16,4 +16,6 @@ router
   .patch(validate(cardValidation.updateCard), cardController.updateCard)
   .delete(validate(cardValidation.deleteCard), cardController.deleteCard);
 
+router.route('/delete/:columnId').delete(validate(cardValidation.deleteManyCard), cardController.deleteManyCard);
+
 module.exports = router;

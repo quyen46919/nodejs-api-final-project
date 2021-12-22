@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
 const noteSchema = mongoose.Schema({
-  ownerId: {
+  owner: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
   },

@@ -3,16 +3,24 @@ const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService, emailService } = require('../services');
 
 const register = catchAsync(async (req, res) => {
-  const user = await userService.createUser(req.body);
-  const tokens = await tokenService.generateAuthTokens(user);
-  res.status(httpStatus.CREATED).send({ user, tokens });
+  try {
+    const user = await userService.createUser(req.body);
+    const tokens = await tokenService.generateAuthTokens(user);
+    res.status(httpStatus.CREATED).send({ user, tokens });
+  } catch (err) {
+    res.status(httpStatus.UNAUTHORIZED).send({ message: 'Tài khoản hoặc email đã tồn tại', error: err });
+  }
 });
 
 const login = catchAsync(async (req, res) => {
-  const { username, password } = req.body;
-  const user = await authService.loginUserWithUsernameAndPassword(username, password);
-  const tokens = await tokenService.generateAuthTokens(user);
-  res.send({ user, tokens });
+  try {
+    const { username, password } = req.body;
+    const user = await authService.loginUserWithUsernameAndPassword(username, password);
+    const tokens = await tokenService.generateAuthTokens(user);
+    res.send({ user, tokens });
+  } catch (err) {
+    res.status(httpStatus.UNAUTHORIZED).send({ message: 'Tài khoản hoặc mật khẩu không đúng', error: err });
+  }
 });
 
 const logout = catchAsync(async (req, res) => {

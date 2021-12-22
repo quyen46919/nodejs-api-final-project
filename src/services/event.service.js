@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const mongoose = require('mongoose');
 const { Event } = require('../models');
 const ApiError = require('../utils/ApiError');
 
@@ -44,6 +45,16 @@ const getEventByTitle = async (title) => {
 };
 
 /**
+ * Get event by email
+ * @param {objectId} ownerId
+ * @returns {Promise<Event>}
+ */
+const queryAllEventsByOwnerId = async (ownerId) => {
+  const events = await Event.find({ owner: mongoose.Types.ObjectId(ownerId) });
+  return events;
+};
+
+/**
  * Update event by id
  * @param {ObjectId} Id
  * @param {Object} updateBody
@@ -79,6 +90,7 @@ const deleteEventById = async (Id) => {
 module.exports = {
   createEvent,
   queryEvents,
+  queryAllEventsByOwnerId,
   getEventById,
   getEventByTitle,
   updateEventById,

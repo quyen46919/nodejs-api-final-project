@@ -29,7 +29,7 @@ const updateColumn = {
   }),
   body: Joi.object()
     .keys({
-      title: Joi.string().required(),
+      title: Joi.string(),
       isFavorite: Joi.boolean(),
       cardOrder: Joi.array().items(Joi.custom(objectId)),
     })

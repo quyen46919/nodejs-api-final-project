@@ -2,17 +2,19 @@ const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
 const createNote = {
-  body: Joi.object().keys({
-    ownerId: Joi.string().custom(objectId).required(),
-    title: Joi.string(),
-    content: Joi.string(),
-    cover: Joi.string(),
-    progress: Joi.number(),
-  }),
+  body: Joi.object()
+    .keys({
+      owner: Joi.string().custom(objectId).required(),
+      title: Joi.string().allow(null, ''),
+      content: Joi.string().allow(null, ''),
+      cover: Joi.string().allow(null, ''),
+    })
+    .min(2),
 };
 
 const getNotes = {
   query: Joi.object().keys({
+    id: Joi.string().custom(objectId).required(),
     title: Joi.string(),
     content: Joi.string(),
   }),

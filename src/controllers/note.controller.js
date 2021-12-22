@@ -9,7 +9,9 @@ const createNote = catchAsync(async (req, res) => {
 });
 
 const getNotes = catchAsync(async (req, res) => {
-  const result = await noteService.queryNotes();
+  // const result = await noteService.queryNotes();
+  // res.send(result);
+  const result = await noteService.queryAllNotesByOwnerId(req.query.id);
   res.send(result);
 });
 

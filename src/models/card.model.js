@@ -12,9 +12,11 @@ const cardSchema = mongoose.Schema({
   },
   title: {
     type: String,
+    default: '',
   },
   content: {
     type: String,
+    default: '',
   },
   // images
   cover: {

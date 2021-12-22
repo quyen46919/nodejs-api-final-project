@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { Column } = require('../models');
 const ApiError = require('../utils/ApiError');
+// eslint-disable-next-line import/order
 const mongoose = require('mongoose');
 
 /**

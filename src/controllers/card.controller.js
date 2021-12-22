@@ -34,10 +34,16 @@ const deleteCard = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const deleteManyCard = catchAsync(async (req, res) => {
+  await cardService.deleteManyCard(req.params.columnId);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createCard,
   getCards,
   getCard,
   updateCard,
   deleteCard,
+  deleteManyCard,
 };

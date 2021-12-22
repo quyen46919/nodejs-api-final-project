@@ -35,6 +35,11 @@ const queryBoards = async (filter, options) => {
   return boards;
 };
 
+const queryAllBoardsByUserId = async (userId) => {
+  const boards = await Board.find({ owner: mongoose.Types.ObjectId(userId) });
+  return boards;
+};
+
 const getFullBoards = async (boardId) => {
   const boards = await Board.aggregate([
     {
@@ -57,6 +62,14 @@ const getFullBoards = async (boardId) => {
         foreignField: 'boardId',
         as: 'cards',
       },
+    },
+    {
+      $addFields: {
+        id: '$_id',
+      },
+    },
+    {
+      $project: { _id: 0 },
     },
   ]);
   return boards[0];
@@ -87,14 +100,21 @@ const getBoardByEmail = async (email) => {
  * @returns {Promise<Board>}
  */
 const updateBoardById = async (boardId, updateBody) => {
-  const board = await getBoardById(boardId);
-  if (!board) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Board not found');
-  }
+  // const board = await getBoardById(boardId);
+  // if (!board) {
+  //   throw new ApiError(httpStatus.NOT_FOUND, 'Board not found');
+  // }
 
-  Object.assign(board, updateBody);
-  await board.save();
-  return board;
+  // Object.assign(board, updateBody);
+  // await board.save();
+  // return board;
+
+  const result = await Board.findOneAndUpdate(
+    { _id: mongoose.Types.ObjectId(boardId) },
+    { $set: updateBody },
+    { returnOriginal: false }
+  );
+  return result;
 };
 
 /**
@@ -114,6 +134,7 @@ const deleteBoardById = async (boardId) => {
 module.exports = {
   createBoard,
   queryBoards,
+  queryAllBoardsByUserId,
   getFullBoards,
   pushColumnOrder,
   getBoardById,

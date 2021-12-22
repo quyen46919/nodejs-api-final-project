@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const mongoose = require('mongoose');
 const { Note } = require('../models');
 const ApiError = require('../utils/ApiError');
 
@@ -43,6 +44,11 @@ const getNoteByTitle = async (title) => {
   return Note.findOne({ title });
 };
 
+const queryAllNotesByOwnerId = async (ownerId) => {
+  const notes = await Note.find({ owner: mongoose.Types.ObjectId(ownerId) });
+  return notes;
+};
+
 /**
  * Update note by id
  * @param {ObjectId} Id
@@ -79,6 +85,7 @@ const deleteNoteById = async (Id) => {
 module.exports = {
   createNote,
   queryNotes,
+  queryAllNotesByOwnerId,
   getNoteById,
   getNoteByTitle,
   updateNoteById,

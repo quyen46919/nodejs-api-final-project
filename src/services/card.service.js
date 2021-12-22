@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
-const { Card } = require('../models');
+const mongoose = require('mongoose');
+const { Card, Column } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -53,9 +54,8 @@ const updateCardById = async (Id, updateBody) => {
   if (!card) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Card not found');
   }
-  if (updateBody.title && (await Card.isTitleTaken(updateBody.title, Id))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Title already taken');
-  }
+  // eslint-disable-next-line no-param-reassign
+  updateBody.columnId = mongoose.Types.ObjectId(updateBody.columnId);
   Object.assign(card, updateBody);
   await card.save();
   return card;
@@ -75,6 +75,15 @@ const deleteCardById = async (Id) => {
   return card;
 };
 
+/**
+ * Delete many card by columnId
+ * @param {Array of string card id} Id
+ */
+const deleteManyCard = async (columnId) => {
+  await Card.deleteMany({ columnId });
+  await Column.findByIdAndUpdate(columnId, { cardOrder: [] });
+};
+
 module.exports = {
   createCard,
   queryCards,
@@ -82,4 +91,5 @@ module.exports = {
   getCardByTitle,
   updateCardById,
   deleteCardById,
+  deleteManyCard,
 };

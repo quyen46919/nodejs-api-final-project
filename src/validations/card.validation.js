@@ -5,8 +5,8 @@ const createCard = {
   body: Joi.object().keys({
     columnId: Joi.string().custom(objectId).required(),
     boardId: Joi.string().custom(objectId).required(),
-    title: Joi.string(),
-    content: Joi.string(),
+    title: Joi.string().allow(null, ''),
+    content: Joi.string().allow(null, ''),
     cover: Joi.string(),
   }),
 };
@@ -30,8 +30,7 @@ const updateCard = {
   }),
   body: Joi.object()
     .keys({
-      title: Joi.string(),
-      content: Joi.string(),
+      columnId: Joi.custom(objectId),
     })
     .min(1),
 };
@@ -42,10 +41,17 @@ const deleteCard = {
   }),
 };
 
+const deleteManyCard = {
+  params: Joi.object().keys({
+    columnId: Joi.string().custom(objectId),
+  }),
+};
+
 module.exports = {
   createCard,
   getCards,
   getCard,
   updateCard,
   deleteCard,
+  deleteManyCard,
 };

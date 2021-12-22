@@ -10,7 +10,7 @@ const password = (value, helpers) => {
     return helpers.message('password must be at least 8 characters');
   }
   if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-    return helpers.message('password must contain at least 1 letter and 1 number');
+    return helpers.message('Mật khẩu phải bao gồm ít nhất 1 chữ cái và 1 chữ số');
   }
   return value;
 };

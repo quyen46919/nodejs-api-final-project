@@ -5,16 +5,15 @@ const createBoard = {
   body: Joi.object().keys({
     owner: Joi.string().custom(objectId),
     title: Joi.string().required(),
-    columnOrder: Joi.array(),
-    column: Joi.array(),
     lastUpdated: Joi.date(),
     isFavorite: Joi.boolean(),
-    sharedUserList: Joi.array(),
+    sharedUserList: Joi.array().allow(null),
   }),
 };
 
 const getBoards = {
   query: Joi.object().keys({
+    id: Joi.string().custom(objectId).required(),
     title: Joi.string(),
     role: Joi.string(),
     sortBy: Joi.string(),
@@ -35,10 +34,9 @@ const updateBoard = {
   }),
   body: Joi.object()
     .keys({
+      id: Joi.custom(objectId),
       title: Joi.string(),
       columnOrder: Joi.array().items(Joi.custom(objectId)),
-      column: Joi.array().items(Joi.object().keys().min(1)),
-      lastUpdated: Joi.date(),
       isFavorite: Joi.boolean(),
       sharedUserList: Joi.array().items(Joi.custom(objectId)),
     })
